@@ -32,7 +32,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//process();
+				process();
 			}
 		});
 		timer.setRepeats(true);
@@ -43,7 +43,45 @@ public class GameEngine implements KeyListener, GameReporter{
 		timer.start();
 	}
 	
+	private void generateEnemy(){
+		Enemy e = new Enemy((int)(Math.random()*390), 30);
+		gp.sprites.add(e);
+		enemies.add(e);
+	}
 	
+	private void process(){
+		if(Math.random() < difficulty){
+			generateEnemy();
+		}
+		
+		Iterator<Enemy> e_iter = enemies.iterator();
+		while(e_iter.hasNext()){
+			Enemy e = e_iter.next();
+			e.proceed();
+			
+			if(!e.isAlive()){
+				e_iter.remove();
+				gp.sprites.remove(e);
+				
+			}
+		}
+		
+		//gp.updateGameUI(this);
+		
+		Rectangle2D.Double vr = v.getRectangle();
+		Rectangle2D.Double er;
+		for(Enemy e : enemies){
+			er = e.getRectangle();
+			if(er.intersects(vr)){
+				die();
+				return;
+			}
+		}
+	}
+	
+	public void die(){
+		timer.stop();
+	}
 	
 	
 	
