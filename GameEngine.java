@@ -62,11 +62,11 @@ public class GameEngine implements KeyListener, GameReporter{
 			if(!e.isAlive()){
 				e_iter.remove();
 				gp.sprites.remove(e);
-				
+				score += 100; //add score
 			}
 		}
 		
-		//gp.updateGameUI(this);
+		gp.updateGameUI(this);
 		
 		Rectangle2D.Double vr = v.getRectangle();
 		Rectangle2D.Double er;
@@ -82,8 +82,6 @@ public class GameEngine implements KeyListener, GameReporter{
 	public void die(){
 		timer.stop();
 	}
-	
-	
 	
 	void controlVehicle(KeyEvent e) {
 		switch (e.getKeyCode()) {
