@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.Timer;
-
+import javax.swing.JOptionPane;
 
 public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
@@ -18,7 +18,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	private SpaceShip v;	
 	
 	private Timer timer;
-	
+	//private long hp = 4;
 	private long score = 0;
 	private double difficulty = 0.15; //add difficulty 
 	
@@ -32,7 +32,8 @@ public class GameEngine implements KeyListener, GameReporter{
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				process();
+				process(); 
+				checkSpaceShip();
 			}
 		});
 		timer.setRepeats(true);
@@ -49,6 +50,9 @@ public class GameEngine implements KeyListener, GameReporter{
 		enemies.add(e);
 	}
 	
+	
+
+
 	private void process(){
 		if(Math.random() < difficulty){
 			generateEnemy();
@@ -73,12 +77,19 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				die();
+				v.hit();
+				e.hit();
 				return;
 			}
 		}
 	}
 	
+
+	public void checkSpaceShip() {
+		if(!v.isAlive()) die();
+	}
+
+
 	public void die(){
 		timer.stop();
 	}
@@ -97,10 +108,14 @@ public class GameEngine implements KeyListener, GameReporter{
 		}
 	}
 
-	public long getScore(){
+	public long getScore(){ 
 		return score;
 	}
 	
+	public long getSpaceShipHp() {
+		return v.getHp();
+	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		controlVehicle(e);

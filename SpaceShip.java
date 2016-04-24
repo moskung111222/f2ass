@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 public class SpaceShip extends Sprite{
 
 	int step = 8;
+	int hp = 4; 
+	boolean alive = true;
 	
 	public SpaceShip(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -27,4 +29,18 @@ public class SpaceShip extends Sprite{
 			x = 400 - width;
 	}
 
+	public void hit() {
+		//hp--; //hp
+		if(hp <= 0) 
+		alive = false;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
 }
+
