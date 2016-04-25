@@ -30,7 +30,7 @@ public class SpaceShip extends Sprite{
 	}
 
 	public void hit() {
-		//hp--; //hp
+		hp--; //hp
 		if(hp <= 0) 
 		alive = false;
 	}
