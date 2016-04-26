@@ -29,6 +29,14 @@ public class SpaceShip extends Sprite{
 			x = 400 - width;
 	}
 
+	public void hp(){
+		if(hp < 4)
+			hp++;
+			
+	}
+
+
+
 	public void hit() {
 		hp--; //hp
 		if(hp <= 0) 

@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
+	private ArrayList<Item> item = new ArrayList<Item>();//add item
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
 	private SpaceShip v;	
 	
@@ -34,6 +35,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			public void actionPerformed(ActionEvent arg0) {
 				process(); 
 				checkSpaceShip();
+				processItem(); //itemfall
 			}
 		});
 		timer.setRepeats(true);
@@ -50,7 +52,42 @@ public class GameEngine implements KeyListener, GameReporter{
 		enemies.add(e);
 	}
 	
-	
+	private void generateItem(){
+		Item it = new Item((int)(Math.random()*390), 30);
+		gp.sprites.add(it);
+		item.add(it);
+	}	
+
+
+
+	private void processItem(){
+		if(Math.random() < difficulty/2){
+			generateItem();
+		}
+		
+		Iterator<Item> it_iter = item.iterator();
+		while(it_iter.hasNext()){
+			Item it = it_iter.next();
+			it.proceed();
+			
+			if(!it.isAlive()){
+				gp.sprites.remove(it);
+				it_iter.remove();			
+			}
+		}
+		gp.updateGameUI(this);
+		
+		Rectangle2D.Double vr = v.getRectangle();
+		Rectangle2D.Double tr;
+		for(Item it : item){
+			tr = it.getRectangle();
+			if(tr.intersects(vr)){	
+				//add hp
+				v.hp();
+				return;
+			}
+		}
+	}
 
 
 	private void process(){
