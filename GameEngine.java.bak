@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.Timer;
+
 import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import java.awt.*;
+import javax.swing.*;
 
 public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
@@ -121,11 +125,19 @@ public class GameEngine implements KeyListener, GameReporter{
 		}
 	}
 	
-
+		public void restart(){
+ 		for(Enemy e : enemys){
+ 
+ 		}
+ 
+ 	}
 	public void checkSpaceShip() {
 		if(!v.isAlive()) die();
 	}
 
+	public void stop(){
+		timer.stop();	
+	}
 
 	public void die(){
 		timer.stop();

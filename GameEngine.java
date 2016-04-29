@@ -125,11 +125,19 @@ public class GameEngine implements KeyListener, GameReporter{
 		}
 	}
 	
-
+		public void restart(){
+ 		for(Enemy e : enemies){
+ 
+ 		}
+ 
+ 	}
 	public void checkSpaceShip() {
 		if(!v.isAlive()) die();
 	}
 
+	public void stop(){
+		timer.stop();	
+	}
 
 	public void die(){
 		timer.stop();
